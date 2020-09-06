@@ -1,11 +1,8 @@
 ﻿using EmployeeManagement.API.Data;
 using EmployeeManagement.API.Interfaces;
 using EmployeeManagement.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EmployeeManagement.API.Repository
 {

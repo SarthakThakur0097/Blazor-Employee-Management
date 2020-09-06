@@ -3,8 +3,6 @@ using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeManagement.API.Controllers
@@ -54,6 +52,28 @@ namespace EmployeeManagement.API.Controllers
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving dtaa from the database");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
+        {
+            try
+            {
+                if(employee == null)
+                {
+                    return BadRequest();
+                }
+
+                var createEmployee = await employeeRepository.AddEmployee(employee);
+
+                return CreatedAtAction(nameof(GetEmployee), new { id = createEmployee.EmployeeId }, 
+                    createEmployee);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data fromt he dtabase");
             }
         }
     }

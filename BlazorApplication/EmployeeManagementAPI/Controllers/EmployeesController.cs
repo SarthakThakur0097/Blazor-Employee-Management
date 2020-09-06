@@ -81,7 +81,34 @@ namespace EmployeeManagement.API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data fromt he dtabase");
+                    "Error retrieving data from the database");
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee employee)
+        {
+            try
+            {
+                if(id != employee.EmployeeId)
+                {
+                    return BadRequest("Employee ID mismatch");
+                }
+
+                var employeeToUpdate = await employeeRepository.GetEmployee(id);
+
+                if(employeeToUpdate == null)
+                {
+                    return NotFound($"Employee with Id = {id} not found");
+                }
+
+                return await employeeRepository.UpdateEmployee(employee);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                                   "Error updating data");
             }
         }
     }

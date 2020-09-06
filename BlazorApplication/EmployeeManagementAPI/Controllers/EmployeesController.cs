@@ -2,7 +2,10 @@
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EmployeeManagement.API.Controllers
@@ -17,6 +20,29 @@ namespace EmployeeManagement.API.Controllers
         {
             this.employeeRepository = employeeRepository;
         }
+
+        [HttpGet("{search}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> Search(string name, Gender? gender)
+        {
+            try
+            {
+
+                var result = await employeeRepository.Search(name, gender);
+                
+                if(result.Any())
+                {
+                    return Ok(result);
+                }
+
+                return NotFound();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult> GetEmployees()
         {

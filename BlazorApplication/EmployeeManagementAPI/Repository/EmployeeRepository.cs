@@ -39,6 +39,11 @@ namespace EmployeeManagement.API.Repository
             return await appDbContext.Employees
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
+        public async Task<Employee> GetEmployeeByEmail(string email)
+        {
+            return await appDbContext.Employees
+                .FirstOrDefaultAsync(e => e.Email == email);
+        }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {

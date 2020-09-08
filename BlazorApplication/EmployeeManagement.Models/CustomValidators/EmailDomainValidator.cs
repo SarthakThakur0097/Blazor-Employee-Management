@@ -13,12 +13,12 @@ namespace EmployeeManagement.Models.CustomValidators
             ValidationContext validationContext)
         {
             string[] strings = value.ToString().Split('@');
-            if (strings[1].ToUpper() == AllowedDomain.ToUpper())
+            if (strings.Length > 1 && strings[1].ToUpper() == AllowedDomain.ToUpper())
             {
                 return null;
             }
 
-            return new ValidationResult(ErroMessage,
+            return new ValidationResult(ErrorMessage,
             new[] { validationContext.MemberName });
         }
     }

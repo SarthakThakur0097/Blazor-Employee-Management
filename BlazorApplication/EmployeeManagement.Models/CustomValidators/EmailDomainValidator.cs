@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EmployeeManagement.Models.CustomValidators
 {
-    class EmailDomainValidator : ValidationAttribute
+    public class EmailDomainValidator : ValidationAttribute
     {
         public string AllowedDomain { get; set; }
 

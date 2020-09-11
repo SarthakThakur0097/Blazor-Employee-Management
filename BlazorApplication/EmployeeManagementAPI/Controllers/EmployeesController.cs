@@ -138,7 +138,6 @@ namespace EmployeeManagement.API.Controllers
         {
             try
             {
-
                 var employeeToDelete = await employeeRepository.GetEmployee(id);
 
                 if(employeeToDelete == null)

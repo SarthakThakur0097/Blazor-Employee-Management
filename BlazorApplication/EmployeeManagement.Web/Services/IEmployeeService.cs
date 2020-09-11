@@ -12,7 +12,7 @@ namespace EmployeeManagement.API.Services
         Task<Employee> GetEmployee(int id);
         Task<Employee> UpdateEmployee(Employee updatedEmployee);
         Task<Employee> CreateEmployee(Employee newEmployee);
-
+        Task DeleteEmployee(int id);
 
     }
 }

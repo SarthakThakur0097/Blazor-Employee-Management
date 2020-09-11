@@ -22,15 +22,24 @@ namespace EmployeeManagement.Web.Pages
         public IEmployeeService EmployeeService{ get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        protected Blazor.Components.ConfirmBase DeleteConfirmation { get; set; }
         protected async Task CheckBoxChanged(ChangeEventArgs e)
         {
             await OnEmployeeSelection.InvokeAsync((bool)e.Value);
         }
 
-        protected async Task Delete_Click()
+        protected void Delete_Click()
         {
-            await EmployeeService.DeleteEmployee(Employee.EmployeeId);
-            await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+            DeleteConfirmation.Show();
+        }
+
+        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if(deleteConfirmed)
+            {
+                await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+                await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+            }
         }
     }
 }
